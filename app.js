@@ -1,22 +1,27 @@
-const game1 = new Hangman('mohammad khodaei', 4)
+const getRandomInt = (max) => {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+const word = words[getRandomInt(words.length)];
+
+const hangman = new Hangman(word, word.length);
 const puzzleEl = document.querySelector('#puzzle');
 const messageEl = document.querySelector('#message');
 
 const showPuzzle = () => {
-    puzzleEl.textContent = game1.getPuzzle();
+    puzzleEl.textContent = hangman.getPuzzle();
 }
 
 const getStatusMessage = () => {
-    messageEl.textContent = game1.getStatusMessage();
+    messageEl.textContent = hangman.getStatusMessage();
 }
 
 showPuzzle();
 getStatusMessage();
 
 window.addEventListener('keypress', (e) => {
-    if (game1.status === 'playing') {
+    if (hangman.status === 'playing') {
         const guess = String.fromCharCode(e.charCode)
-        game1.makeGuess(guess);
+        hangman.makeGuess(guess);
         showPuzzle();
         getStatusMessage();
     }
